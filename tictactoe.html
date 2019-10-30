@@ -3,6 +3,7 @@
 
 <head>
     <title>Tic Tac Toe</title>
+    
     <style>
         body {
             font-family: Arial, Helvetica, sans-serif;
@@ -18,37 +19,99 @@
             display: grid;
             grid-template-columns: repeat(3, 100px);
             grid-template-rows: repeat(3, 100px);
+            text-align: center;
+
         }
+
         .randrechts {
-            border-right: 2px solid black;
+            border-right: 3px solid black;
+            ;
+        }
+
+        .randoben {
+            border-top: 3px solid black;
+        }
+
+        .border {
+            background-color: mediumaquamarine;
+            text-align: center;
+
+
+
         }
     </style>
     <script>
+        const WIDTH = 3;
+        const HEIGHT = 3;
+
+        // Datenmodell
+        LEER = 0;
+        PLAYER_1 = 1;
+        PLAYER_2 = 2;
+        zellen = new Array(WIDTH * HEIGHT);
+        currentPlayer = PLAYER_1;
+
         function losgehts() {
             board = document.getElementById('board');
 
             zellenVorlage = document.getElementById('zelle').content.firstElementChild;
 
-            for (i = 1; i <= 9; i++) {
+            for (i = 0; i < (WIDTH * HEIGHT); i++) {
                 zelle = document.importNode(zellenVorlage, true);
                 zelle.id = 'zelle' + i;
-                if ((i % 3) != 0) {
+                zelle.datenIndex = i; // Index im Datenmodell
+                if ((i % WIDTH) != 2) {
                     zelle.classList.add('randrechts');
                 }
+                if (i > (WIDTH - 1)) zelle.classList.add('randoben')
+
                 board.appendChild(zelle);
             }
         }
 
+        // Controller
         function hatgeklickt(event) {
             console.log('Geklickt auf: ' + event.currentTarget.id);
+
+            zelle = event.currentTarget;
+            datenIndex = zelle.datenIndex;
+
+            if (zellen[datenIndex] == LEER) {
+                zellen[datenIndex] = currentPlayer;
+
+                if (currentPlayer == PLAYER_1) currentPlayer = PLAYER_2;
+                else currentPlayer = PLAYER_1;
+            }
+
+            aktualisieren();
         }
+
+        // View aktualisieren
+        function aktualisieren() {
+            for (i = 0; i < (WIDTH * HEIGHT); i++) {
+
+                zelle = document.getElementById('zelle' + i);
+
+                wert = zellen[i];
+                if (wert == PLAYER_1) {
+                    zelle.innerHTML = 'X';
+                } if (wert == PLAYER_2) {
+                    zelle.innerHTML = 'O';
+                }
+                else {
+
+
+                }
+            }
+        }
+
 
     </script>
 </head>
 
 <body>
     <template id="zelle">
-        <div onclick="hatgeklickt(event)">X</div>
+        <div class="border" onclick="hatgeklickt(event)"></div>
     </template>
 
     <h1>Tic Tac Toe</h1>
@@ -82,7 +145,6 @@
 
     </p>
 
-    <h3>Tabelle mit DIVs</h3>
     <div id="board" class="board"></div>
 
     <p>Sonstiges</p>
