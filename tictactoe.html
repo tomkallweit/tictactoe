@@ -3,7 +3,7 @@
 
 <head>
     <title>Tic Tac Toe</title>
-    
+
     <style>
         body {
             font-family: Arial, Helvetica, sans-serif;
@@ -17,15 +17,13 @@
 
         .board {
             display: grid;
-            grid-template-columns: repeat(3, 100px);
-            grid-template-rows: repeat(3, 100px);
-            text-align: center;
-
+            font-size: 7em;
+            grid-template-columns: repeat(3, 1em);
+            grid-template-rows: repeat(3, 1em);
         }
 
         .randrechts {
             border-right: 3px solid black;
-            ;
         }
 
         .randoben {
@@ -33,11 +31,10 @@
         }
 
         .border {
-            background-color: mediumaquamarine;
-            text-align: center;
-
-
-
+            background-color: aquamarine;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
     </style>
     <script>
@@ -49,6 +46,7 @@
         PLAYER_1 = 1;
         PLAYER_2 = 2;
         zellen = new Array(WIDTH * HEIGHT);
+        zellen.fill(LEER);
         currentPlayer = PLAYER_1;
 
         function losgehts() {
@@ -95,14 +93,17 @@
                 wert = zellen[i];
                 if (wert == PLAYER_1) {
                     zelle.innerHTML = 'X';
-                } if (wert == PLAYER_2) {
+                } else if (wert == PLAYER_2) {
                     zelle.innerHTML = 'O';
-                }
-                else {
-
-
+                } else {
+                    zelle.innerHTML = '';
                 }
             }
+        }
+
+        function neuesSpiel() {
+            zellen.fill(LEER);
+            aktualisieren();
         }
 
 
@@ -146,6 +147,9 @@
     </p>
 
     <div id="board" class="board"></div>
+    <p>
+        <button onclick="neuesSpiel()">Neues Spiel</button>
+    </p>
 
     <p>Sonstiges</p>
     <ul>
@@ -156,6 +160,7 @@
     </ul>
     <script>
         window.onload = losgehts();
+
     </script>
 </body>
 
