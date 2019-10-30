@@ -7,31 +7,94 @@
         body {
             font-family: Arial, Helvetica, sans-serif;
         }
+
         .Hervorhebung {
             font-weight: bolder;
             text-decoration: line-through;
+            font-style: italic;
+        }
+
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-template-rows: repeat(3, 100px);
+        }
+        .randrechts {
+            border-right: 2px solid black;
         }
     </style>
+    <script>
+        function losgehts() {
+            board = document.getElementById('board');
+
+            zellenVorlage = document.getElementById('zelle').content.firstElementChild;
+
+            for (i = 1; i <= 9; i++) {
+                zelle = document.importNode(zellenVorlage, true);
+                zelle.id = 'zelle' + i;
+                if ((i % 3) != 0) {
+                    zelle.classList.add('randrechts');
+                }
+                board.appendChild(zelle);
+            }
+        }
+
+        function hatgeklickt(event) {
+            console.log('Geklickt auf: ' + event.currentTarget.id);
+        }
+
+    </script>
 </head>
 
 <body>
+    <template id="zelle">
+        <div onclick="hatgeklickt(event)">X</div>
+    </template>
+
     <h1>Tic Tac Toe</h1>
     <h2>Allgemein</h2>
     <p>
-        <span class="Hervorhebung">Tic-Tac-Toe</span> oder Drei gewinnt (auch Kreis und Kreuz, Dodelschach) ist ein klassisches, einfaches
+        <span class="Hervorhebung">Tic-Tac-Toe</span> oder Drei gewinnt (auch Kreis und Kreuz, Dodelschach) ist ein
+        klassisches, einfaches
         Zweipersonen-Strategiespiel, dessen Geschichte sich bis ins 12. Jahrhundert v. Chr. zurückverfolgen lässt.
 
     </p>
-    <p>
-        Regeln
-        Auf einem quadratischen, 3×3 Felder großen Spielfeld setzen die beiden Spieler abwechselnd ihr Zeichen (ein Spieler Kreuze, der andere Kreise) in ein freies Feld. Der Spieler, der als Erster drei Zeichen in eine Zeile, Spalte oder Diagonale setzen kann, gewinnt. Wenn allerdings beide Spieler optimal spielen, kann keiner gewinnen, und es kommt zu einem Unentschieden. Das heißt, alle neun Felder sind gefüllt, ohne dass ein Spieler die erforderlichen Zeichen in einer Reihe, Spalte oder Diagonalen setzen konnte.
-        
-    </p>
-    
+    <h3>Regeln</h3>
 
-    <a href="https://www.google.de/">Google</a>
-    , <a href="https://de.wikipedia.org/wiki/Tic-Tac-Toe">Wikepedia</a>
-    , <a href="https://www.amazon.de/Tic-Tac-Toe-Tic-Legespiel-Strategiespiel-Holzrahmen/dp/B005Y5AVFK/ref=sr_1_3?__mk_de_DE=%C3%85M%C3%85%C5%BD%C3%95%C3%91&keywords=Tic+Tac+Toe&qid=1572253402&sr=8-3">Amazon</a>
+
+    <p>
+        <span class="Hervorhebung">Auf</span> einem quadratischen, 3×3 Felder großen Spielfeld setzen die beiden Spieler
+        abwechselnd ihr Zeichen (ein Spieler Kreuze, der andere Kreise) in ein freies Feld. Der Spieler, der als Erster
+        drei Zeichen in eine Zeile, Spalte oder Diagonale setzen kann, gewinnt. Wenn allerdings beide Spieler optimal
+        spielen, kann keiner gewinnen, und es kommt zu einem Unentschieden. Das heißt, alle neun Felder sind gefüllt,
+        ohne dass ein Spieler die erforderlichen Zeichen in einer Reihe, Spalte oder Diagonalen setzen konnte.
+
+    </p>
+    <h4>Ausprobieren</h4>
+
+    <p>
+        <span class="Hervorhebung">Hier</span>
+
+        können Sie das Spiel gleich live ausprobieren:
+        <a
+            href="https://www.google.com/search?safe=strict&rlz=1C1GCEB_enDE873&ei=xre2XZXtHPKorgTCi5X4CQ&q=tic+tac+toe+spiel&oq=Tic+Tac+Toe+&gs_l=psy-ab.1.0.0l10.4086.4086..5350...0.2..0.85.85.1....1..0....1..gws-wiz.......0i71.Wz9uryXB9rw">spielen</a>
+        , <a href="http://www.mathematische-basteleien.de/tictactoe.htm">Strategien</a>
+
+    </p>
+
+    <h3>Tabelle mit DIVs</h3>
+    <div id="board" class="board"></div>
+
+    <p>Sonstiges</p>
+    <ul>
+        <li><a href="https://de.wikipedia.org/wiki/Tic-Tac-Toe">weitere Informationen bei Wikipedia</a></li>
+        <li><a
+                href="https://www.amazon.de/Tic-Tac-Toe-Tic-Legespiel-Strategiespiel-Holzrahmen/dp/B005Y5AVFK/ref=sr_1_3?__mk_de_DE=%C3%85M%C3%85%C5%BD%C3%95%C3%91&keywords=Tic+Tac+Toe&qid=1572253402&sr=8-3">kaufen
+                auf Amazon</a></li>
+    </ul>
+    <script>
+        window.onload = losgehts();
+    </script>
 </body>
 
 </html>
